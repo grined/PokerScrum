@@ -1,0 +1,20 @@
+.round-button {
+    display:block;
+    width:50px;
+    height:50px;
+    border: 1px solid darkgray;
+    border-radius: 50%;
+    color:black;
+    text-align:center;
+    background: white;
+    font-size:15px;
+    outline: 0;
+}
+
+.round-button:hover {
+    background: lightgrey;
+}
+
+.round-button:checked {
+    background: yellow;
+}

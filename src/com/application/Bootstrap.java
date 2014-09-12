@@ -13,7 +13,9 @@ public class Bootstrap {
         socketConfig.setReuseAddress(true);
         config.setTransports(Transport.WEBSOCKET);
         final SocketIOServer server = new SocketIOServer(config);
-        server.addConnectListener(c -> System.out.println(c.getHandshakeData().getTime()));
+        server.addConnectListener(c -> {
+            System.out.println(c.getHandshakeData().getTime());
+        });
         server.start();
     }
 }

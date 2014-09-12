@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script src="js/lib/socket.io.js"></script>
+    <link rel="stylesheet" href="css/button/button.css">
+    <script src="js/lib/socket.io-1.0.6.js"></script>
     <script src="js/connector.js"></script>
+    <script src="js/button.js"></script>
+
     <script>
-        function boot(){
+        function boot() {
             window.connector = new net.Connector("ws://" + document.domain + ":8085/");
         }
     </script>
 </head>
 
 <body onload="boot()">
-
+<form>
+    <div>
+        <input type="button" value="1/2" class="round-button"/>
+    </div>
+</form>
 </body>
 </html>
