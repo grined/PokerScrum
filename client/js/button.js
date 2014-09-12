@@ -1,13 +1,13 @@
 "use strict"
 
-var inputList = document.getElementsByTagName("input");
-for (var i =0; i<inputList.length; i++){
-    var btn = inputList[i];
-    if (btn.type == "button"){
-        btn.onclick = onClick(btn);
+var selected = 0;
+function onClick(data){
+    console.info(data)
+    selected = data;
+    var inputs = document.getElementsByTagName("input")
+    for (var i=0; i<inputs.length ; i++){
+        if (inputs[i].value == selected){
+            inputs[i].class = "";//"round-button-checked";
+        }
     }
-}
-
-function onClick(btn){
-    console.info(btn.value)
 }

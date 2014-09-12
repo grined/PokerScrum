@@ -9,12 +9,17 @@
     background: white;
     font-size:15px;
     outline: 0;
+    float: left;
 }
 
 .round-button:hover {
     background: lightgrey;
 }
 
-.round-button:checked {
+.round-button-checked .round-button{
+    background: yellow;
+}
+
+.round-button-checked:hover .round-button{
     background: yellow;
 }

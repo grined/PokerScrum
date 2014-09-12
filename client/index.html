@@ -17,8 +17,17 @@
 
 <body onload="boot()">
 <form>
-    <div>
-        <input type="button" value="1/2" class="round-button"/>
+    <div id="container" style="width:300px">
+        <input type="button" value="0" class="round-button" onclick="onClick(value)"/>
+        <input type="button" value="1" class="round-button" onclick="onClick(value)"/>
+        <input type="button" value="2" class="round-button" onclick="onClick(value)"/>
+        <input type="button" value="3" class="round-button" onclick="onClick(value)"/>
+        <input type="button" value="5" class="round-button" onclick="onClick(value)"/>
+        <input type="button" value="8" class="round-button" onclick="onClick(value)"/>
+    </div>
+
+    <div id="results" style="width:300px">
+
     </div>
 </form>
 </body>
