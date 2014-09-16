@@ -16,10 +16,10 @@
     background: lightgrey;
 }
 
-.round-button-checked .round-button{
+.round-button.round-button-checked{
     background: yellow;
 }
 
-.round-button-checked:hover .round-button{
+.round-button.round-button-checked:hover .round-button{
     background: yellow;
 }
