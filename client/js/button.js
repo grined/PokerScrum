@@ -12,5 +12,14 @@ function onClick(data){
             inputs[i].classList.remove("round-button-checked");
         }
     }
-    window.connector.socket.io.emit("mark", {mark : data})
+    window.connector.socket.emit("Mark", {'mark': data})
+}
+
+function connectToRoom(){
+    var input = document.getElementById("roomInput");
+    window.connector.socket.emit("ConnectToRoom", {'roomId': input.value})
+    document.getElementById("roomContainer").hidden = true;
+    document.getElementById("selectorContainer").hidden = false;
+    document.getElementById("roomCaption").textContent = "Room : " + input.value;
+
 }

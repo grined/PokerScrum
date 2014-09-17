@@ -17,13 +17,20 @@
 
 <body onload="boot()">
 <form>
-    <div id="container" style="width:300px">
-        <input type="button" value="0" class="round-button" onclick="onClick(value)"/>
-        <input type="button" value="1" class="round-button" onclick="onClick(value)"/>
-        <input type="button" value="2" class="round-button" onclick="onClick(value)"/>
-        <input type="button" value="3" class="round-button" onclick="onClick(value)"/>
-        <input type="button" value="5" class="round-button" onclick="onClick(value)"/>
-        <input type="button" value="8" class="round-button" onclick="onClick(value)"/>
+    <div id="roomContainer">
+        <input id="roomInput"/>
+        <input type="button" onclick="connectToRoom()" value="Connect"/>
+    </div>
+    <div id="selectorContainer" style="width:300px" hidden="true">
+        <form>
+            <div id ="roomCaption" class="roomCaption"></div>
+            <input type="button" value="0" class="round-button" onclick="onClick(value)"/>
+            <input type="button" value="1" class="round-button" onclick="onClick(value)"/>
+            <input type="button" value="2" class="round-button" onclick="onClick(value)"/>
+            <input type="button" value="3" class="round-button" onclick="onClick(value)"/>
+            <input type="button" value="5" class="round-button" onclick="onClick(value)"/>
+            <input type="button" value="8" class="round-button" onclick="onClick(value)"/>
+        </form>
     </div>
 
     <div id="results" style="width:300px">
