@@ -4,46 +4,83 @@ import com.application.entity.Room;
 import com.application.entity.Voter;
 import com.corundumstudio.socketio.SocketIOClient;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ConnectionPool {
     public static final String ROOM_PREFIX = "room/";
     private final ServerHolder serverHolder;
-    private Map<Room, Map<Voter,SocketIOClient>> connectionPool;
+    private List<Room> rooms;
 
     public ConnectionPool(ServerHolder serverHolder){
-        connectionPool = new ConcurrentHashMap<>();
+        rooms = new CopyOnWriteArrayList<>();
         this.serverHolder = serverHolder;
     }
 
-    public void addRoom(long roomId){
+    public Room addRoom(long roomId){
         Room room = new Room(roomId);
-        connectionPool.put(room, new ConcurrentHashMap<>());
+        rooms.add(room);
+        return room;
     }
 
     public Room findRoomById(long roomId) {
-        return connectionPool.keySet()
-                .stream()
-                .filter(r -> r.getId() == roomId)
-                .findFirst()
-                .orElse(null);
+        return rooms.stream().filter(r -> r.getId() == roomId).findFirst().orElse(null);
     }
 
-
-    public void addClient(long roomId, boolean isLeader, SocketIOClient client){
+    public void addClient(long roomId, SocketIOClient client){
         Room room = findRoomById(roomId);
-        if (connectionPool.containsKey(room)) {
-            connectionPool.get(room).put(new Voter(isLeader), client);
-            client.joinRoom(ROOM_PREFIX + String.valueOf(roomId));
-            serverHolder.sendNewVoterJoin(roomId, connectionPool.get(room).keySet().size());
+        if (room == null){
+            room = addRoom(roomId);
+        }
+        boolean isLeader = room.getVoterList().isEmpty();
+        room.addVoter(new Voter(isLeader, client));
+        client.joinRoom(ROOM_PREFIX + String.valueOf(roomId));
+        serverHolder.sendNewVoterJoin(roomId, room.getVoterList().size());
+        if (isLeader){
+            serverHolder.sendYouAreLeader(roomId);
+
         }
     }
 
     public void disconnectPlayer(SocketIOClient client) {
-        connectionPool
-                .values()
-                .forEach(m->m.entrySet()
-                        .removeIf(map->map.getValue().getSessionId() == client.getSessionId()));
+        Room room = findRoomByClient(client);
+        if (room!=null){
+            Voter voterBySocket = room.findVoterBySocket(client);
+            room.removeVoter(voterBySocket);
+            serverHolder.sendNewVoterJoin(room.getId(), room.getVoterList().size());
+        }
+    }
+
+    public Room findRoomByClient(SocketIOClient client) {
+        return rooms.stream()
+                    .filter(r -> r.findVoterBySocket(client) != null)
+                    .findFirst()
+                    .orElse(null);
+    }
+
+    public void addMark(SocketIOClient client, double mark) {
+        Room roomByClient = findRoomByClient(client);
+        if (roomByClient!=null){
+            roomByClient.putMark(roomByClient.findVoterBySocket(client), mark);
+            serverHolder.sendMarkCounts(roomByClient.getId(), roomByClient.findAllMarks().size());
+            if (roomByClient.readyToShow()){
+                serverHolder.sendMarks(roomByClient.getId(), roomByClient.findAllMarks());
+            }
+        }
+    }
+
+    public void showAll(SocketIOClient client) {
+        Room roomByClient = findRoomByClient(client);
+        if (roomByClient != null){
+            serverHolder.sendMarks(roomByClient.getId(), roomByClient.findAllMarks());
+        }
+    }
+
+    public void clearAll(SocketIOClient client) {
+        Room roomByClient = findRoomByClient(client);
+        if (roomByClient != null){
+            roomByClient.clearMarks();
+            serverHolder.sendMarkCounts(roomByClient.getId(), roomByClient.findAllMarks().size());
+        }
     }
 }

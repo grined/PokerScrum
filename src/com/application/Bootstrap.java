@@ -14,16 +14,20 @@ public class Bootstrap {
 
         serverHolder.getServer().addEventListener("Mark", Mark.class, (client, data, ackSender) -> {
             System.out.println("Client set mark = " + data.getMark());
+            connectionPool.addMark(client, data.getMark());
+        });
+
+        serverHolder.getServer().addEventListener("ShowAll", Object.class, (client, data, ackSender) -> {
+            connectionPool.showAll(client);
+        });
+
+        serverHolder.getServer().addEventListener("ClearAll", Object.class, (client, data, ackSender) -> {
+            connectionPool.clearAll(client);
         });
 
         serverHolder.getServer().addEventListener("ConnectToRoom", ConnectToRoom.class, (client, data, ackSender) -> {
             System.out.println("Client connected to room = " + data.getRoomId());
-            if (connectionPool.findRoomById(data.getRoomId()) != null) {
-                connectionPool.addClient(data.getRoomId(), false, client);
-            } else {
-                connectionPool.addRoom(data.getRoomId());
-                connectionPool.addClient(data.getRoomId(), true, client);
-            }
+                connectionPool.addClient(data.getRoomId(), client);
         });
         serverHolder.getServer().start();
     }

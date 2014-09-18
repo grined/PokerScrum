@@ -11,6 +11,36 @@
      outline: 0;
      float: left;
  }
+.selectorContainer{
+    padding-top: 5px;
+}
+.resultContainer{
+     padding-top: 65px;
+}
+.toolbar{
+    padding-top: 75px;
+}
+
+.toolbar-button{
+    border: 1px solid darkgray;
+    border-radius: 10%;
+    text-align:center;
+    outline: 0;
+    height: 25px;
+    width: 60px;
+}
+.toolbar-button:hover{
+    background: lightblue;
+}
+.card{
+    border: 1px solid darkgray;
+    border-radius: 10%;
+    width: 40px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    float: left;
+}
 
 .round-button:hover {
     background: lightgrey;

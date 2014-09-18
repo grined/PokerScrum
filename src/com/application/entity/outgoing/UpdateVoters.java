@@ -1,12 +1,12 @@
 package com.application.entity.outgoing;
 
-public class NewVoterJoin {
+public class UpdateVoters {
     private long votersCount;
 
-    public NewVoterJoin() {
+    public UpdateVoters() {
     }
 
-    public NewVoterJoin(long votersCount) {
+    public UpdateVoters(long votersCount) {
         this.votersCount = votersCount;
     }
 

@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="css/button/button.css">
+    <link rel="stylesheet" href="css/main.css">
     <script src="js/lib/socket.io-1.0.6.js"></script>
     <script src="js/connector.js"></script>
     <script src="js/button.js"></script>
@@ -16,26 +16,28 @@
 </head>
 
 <body onload="boot()">
-<form>
-    <div id="roomContainer">
-        <input id="roomInput"/>
-        <input type="button" onclick="connectToRoom()" value="Connect"/>
-    </div>
-    <div id="selectorContainer" style="width:300px" hidden="true">
-        <form>
-            <div id ="roomCaption" class="roomCaption"></div>
-            <input type="button" value="0" class="round-button" onclick="onClick(value)"/>
-            <input type="button" value="1" class="round-button" onclick="onClick(value)"/>
-            <input type="button" value="2" class="round-button" onclick="onClick(value)"/>
-            <input type="button" value="3" class="round-button" onclick="onClick(value)"/>
-            <input type="button" value="5" class="round-button" onclick="onClick(value)"/>
-            <input type="button" value="8" class="round-button" onclick="onClick(value)"/>
-        </form>
-    </div>
+<div id="roomContainer">
+    <input id="roomInput"/>
+    <input type="button" onclick="connectToRoom()" value="Connect"/>
+</div>
+<div id="selectorContainer" class="selectorContainer" hidden="true">
+        <div id="roomCaption" class="roomCaption"></div>
+        <input type="button" value="0" class="round-button" onclick="onClick(value)"/>
+        <input type="button" value="1" class="round-button" onclick="onClick(value)"/>
+        <input type="button" value="2" class="round-button" onclick="onClick(value)"/>
+        <input type="button" value="3" class="round-button" onclick="onClick(value)"/>
+        <input type="button" value="5" class="round-button" onclick="onClick(value)"/>
+        <input type="button" value="8" class="round-button" onclick="onClick(value)"/>
+        <input type="button" value="13" class="round-button" onclick="onClick(value)"/>
+</div>
 
-    <div id="results" style="width:300px">
+<div id="resultContainer" hidden="true" class="resultContainer">
+</div>
 
-    </div>
-</form>
+<div id="toolbar" hidden="true" class="toolbar">
+    <input type="button" class="toolbar-button" onclick="showAll()" value="Show all"/>
+    <input type="button" class="toolbar-button" onclick="clearAll()" value="Clear"/>
+</div>
+
 </body>
 </html>
