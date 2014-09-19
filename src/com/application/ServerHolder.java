@@ -26,27 +26,27 @@ public class ServerHolder {
         return server;
     }
 
-    public void sendNewVoterJoin(long roomId, int size){
+    public void sendNewVoterJoin(String roomId, int size){
         server.getAllClients().stream()
-                .filter(c->c.getAllRooms().contains(ConnectionPool.ROOM_PREFIX + String.valueOf(roomId)))
+                .filter(c->c.getAllRooms().contains(ConnectionPool.ROOM_PREFIX + roomId))
                 .forEach(c->c.sendEvent("UpdateVoters", new UpdateVoters(size)));
     }
 
-    public void sendMarkCounts(long roomId, int size){
+    public void sendMarkCounts(String roomId, int size){
         server.getAllClients().stream()
-                .filter(c->c.getAllRooms().contains(ConnectionPool.ROOM_PREFIX + String.valueOf(roomId)))
+                .filter(c->c.getAllRooms().contains(ConnectionPool.ROOM_PREFIX + roomId))
                 .forEach(c->c.sendEvent("MarksCount", new MarksCount(size)));
     }
 
-    public void sendMarks(Long roomId, List<Double> allMarks) {
+    public void sendMarks(String roomId, List<Double> allMarks) {
         server.getAllClients().stream()
-                .filter(c->c.getAllRooms().contains(ConnectionPool.ROOM_PREFIX + String.valueOf(roomId)))
+                .filter(c->c.getAllRooms().contains(ConnectionPool.ROOM_PREFIX + roomId))
                 .forEach(c->c.sendEvent("MarksMsg", new MarksMsg(allMarks)));
     }
 
-    public void sendYouAreLeader(long roomId) {
+    public void sendYouAreLeader(String roomId) {
         server.getAllClients().stream()
-                .filter(c->c.getAllRooms().contains(ConnectionPool.ROOM_PREFIX + String.valueOf(roomId)))
+                .filter(c->c.getAllRooms().contains(ConnectionPool.ROOM_PREFIX + roomId))
                 .forEach(c->c.sendEvent("YouAreLeader", new Object()));
     }
 }

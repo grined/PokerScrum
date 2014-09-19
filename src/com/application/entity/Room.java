@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Room {
-    private Long id;
+    private String id;
     private List<Voter> voterList;
     private Map<Voter,Double> marks;
 
 
-    public Room(Long id) {
+    public Room(String id) {
         this.id = id;
         voterList = new ArrayList<>();
         marks = new HashMap<>();
@@ -52,7 +52,7 @@ public class Room {
                 .orElse(null);
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

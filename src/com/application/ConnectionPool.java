@@ -17,17 +17,17 @@ public class ConnectionPool {
         this.serverHolder = serverHolder;
     }
 
-    public Room addRoom(long roomId){
+    public Room addRoom(String roomId){
         Room room = new Room(roomId);
         rooms.add(room);
         return room;
     }
 
-    public Room findRoomById(long roomId) {
-        return rooms.stream().filter(r -> r.getId() == roomId).findFirst().orElse(null);
+    public Room findRoomById(String roomId) {
+        return rooms.stream().filter(r -> r.getId().equalsIgnoreCase(roomId)).findFirst().orElse(null);
     }
 
-    public void addClient(long roomId, SocketIOClient client){
+    public void addClient(String roomId, SocketIOClient client){
         Room room = findRoomById(roomId);
         if (room == null){
             room = addRoom(roomId);

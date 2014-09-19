@@ -1,13 +1,13 @@
 package com.application.entity.incoming;
 
 public class ConnectToRoom {
-    private long roomId;
+    private String roomId;
 
-    public long getRoomId() {
+    public String getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(long roomId) {
+    public void setRoomId(String roomId) {
         this.roomId = roomId;
     }
 }
